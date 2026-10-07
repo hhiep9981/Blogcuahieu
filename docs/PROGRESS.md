@@ -10,4 +10,5 @@
 - [ ] Replace founder tiles with real portraits (800x1000)
 - [ ] Replace picsum images with brand photography
 - [ ] Real logo, favicon, OG image
-- [x] Deployed to GitHub Pages: https://hhiep9981.github.io/neptworks/ (repo hhiep9981/neptworks)
+- [x] Deployed to GitHub Pages: https://hhiep9981.github.io/Blogcuahieu/ (repo hhiep9981/Blogcuahieu)
+- [x] Renamed company Neptworks to Blogcuahieu; repo renamed to hhiep9981/Blogcuahieu

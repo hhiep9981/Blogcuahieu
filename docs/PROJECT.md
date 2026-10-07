@@ -1,7 +1,7 @@
-# Neptworks Landing Page
+# Blogcuahieu Landing Page
 
 ## Description
-Company website for **Neptworks**, a Vietnamese software company founded by brothers
+Company website for **Blogcuahieu**, a Vietnamese software company founded by brothers
 Hiep Hoang and Hieu Hoang. Content language: English.
 
 ## Products (placeholder names, to be confirmed)
@@ -27,5 +27,5 @@ Hiep Hoang and Hieu Hoang. Content language: English.
 hoanghiep0179@blogcuahieu.com
 
 ## Deployment
-- GitHub Pages from `main` branch root: https://hhiep9981.github.io/neptworks/
-- Repo: https://github.com/hhiep9981/neptworks
+- GitHub Pages from `main` branch root: https://hhiep9981.github.io/Blogcuahieu/
+- Repo: https://github.com/hhiep9981/Blogcuahieu
