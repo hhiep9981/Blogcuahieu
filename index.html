@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neptworks | Wealth, Treasury and Family Software</title>
+  <meta name="description" content="Neptworks builds wealth management, bank treasury and family-tree software from Vietnam. Founded by Hiep Hoang and Hieu Hoang." />
+  <meta name="theme-color" content="#0d6b67" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="https://picsum.photos/seed/neptworks-ocean-horizon/1100/1300?grayscale" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
+  <style type="text/tailwindcss">
+    /*
+      Shape system: buttons + chips = full pill, panels + images = 16px (rounded-2xl).
+      Accent: deep teal only. Theme follows prefers-color-scheme.
+    */
+    @theme {
+      --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "Geist Mono", ui-monospace, monospace;
+
+      --color-bg: #f4f7f7;
+      --color-surface: #e9efef;
+      --color-ink: #0c1a1c;
+      --color-muted: #4b5d5d;
+      --color-line: #d3dddd;
+      --color-accent: #0d6b67;
+      --color-accent-strong: #0a5552;
+      --color-on-accent: #f4fbfa;
+      --color-deep: #082f31;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg: #081113;
+        --color-surface: #0f1d20;
+        --color-ink: #e6efee;
+        --color-muted: #96aaa9;
+        --color-line: #1d3033;
+        --color-accent: #3fb3a9;
+        --color-accent-strong: #5cc6bc;
+        --color-on-accent: #04201f;
+        --color-deep: #0b2a2d;
+      }
+    }
+
+    @layer base {
+      html { scroll-behavior: smooth; }
+      body { @apply bg-bg text-ink font-sans antialiased; }
+      ::selection { background: var(--color-accent); color: var(--color-on-accent); }
+      :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 6px; }
+    }
+
+    @layer components {
+      .btn {
+        @apply inline-flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-sm font-medium transition duration-300 active:scale-[0.98];
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .btn-primary { @apply bg-accent text-on-accent hover:bg-accent-strong; }
+      .btn-ghost { @apply border border-line text-ink hover:border-accent hover:text-accent; }
+      .tint { position: relative; overflow: hidden; }
+      .tint::after {
+        content: ""; position: absolute; inset: 0;
+        background: var(--color-accent); mix-blend-mode: multiply; opacity: .55;
+        pointer-events: none;
+      }
+      .tab[aria-selected="true"] { @apply bg-ink text-bg; }
+    }
+
+    /* Scroll reveal, gated by reduced-motion */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1); transition-delay: calc(var(--i, 0) * 80ms); }
+      .reveal.in { opacity: 1; transform: none; }
+      .hero-img { animation: heroIn 1.2s cubic-bezier(0.16,1,0.3,1) both; }
+      .hero-img img { transition: transform 1.2s cubic-bezier(0.16,1,0.3,1); }
+      .hero-img:hover img { transform: scale(1.03); }
+      .panel { transition: opacity .35s ease, transform .5s cubic-bezier(0.16,1,0.3,1); }
+      .panel[hidden] { display: grid; opacity: 0; transform: translateY(12px); position: absolute; pointer-events: none; visibility: hidden; }
+    }
+    @keyframes heroIn { from { opacity: 0; transform: scale(.97) translateY(16px); } to { opacity: 1; transform: none; } }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-md">
+    <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8" aria-label="Primary">
+      <a href="#top" class="flex items-center gap-2.5 font-semibold tracking-tight">
+        <span class="grid size-8 place-items-center rounded-lg bg-accent text-on-accent text-sm font-bold">N</span>
+        Neptworks
+      </a>
+      <ul class="hidden items-center gap-8 text-sm text-muted md:flex">
+        <li><a class="hover:text-ink" href="#products">Products</a></li>
+        <li><a class="hover:text-ink" href="#founders">Founders</a></li>
+        <li><a class="hover:text-ink" href="#approach">Approach</a></li>
+      </ul>
+      <div class="flex items-center gap-2">
+        <a href="#contact" class="btn btn-primary hidden sm:inline-flex !py-2.5">Contact us</a>
+        <button id="menuBtn" class="grid size-10 place-items-center rounded-full border border-line md:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+          <i class="ph ph-list text-xl"></i>
+        </button>
+      </div>
+    </nav>
+    <div id="mobileMenu" class="hidden border-t border-line px-4 pb-6 pt-2 md:hidden">
+      <ul class="grid gap-1 text-lg">
+        <li><a class="block py-2" href="#products">Products</a></li>
+        <li><a class="block py-2" href="#founders">Founders</a></li>
+        <li><a class="block py-2" href="#approach">Approach</a></li>
+        <li><a class="block py-2 text-accent" href="#contact">Contact us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO: asymmetric split -->
+    <section class="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-10 md:min-h-[calc(100dvh-4rem)] md:grid-cols-12 md:gap-8 md:px-8 md:pt-12">
+      <div class="md:col-span-6 lg:col-span-6">
+        <p class="reveal mb-6 font-mono text-xs uppercase tracking-[0.18em] text-accent">Software company from Vietnam</p>
+        <h1 class="reveal text-4xl font-semibold leading-[1.05] tracking-tighter md:text-5xl lg:text-6xl" style="--i:1">
+          Software for wealth, banks and families.
+        </h1>
+        <p class="reveal mt-6 max-w-[46ch] text-lg leading-relaxed text-muted" style="--i:2">
+          Neptworks builds wealth, treasury and family-heritage platforms, engineered for precision and made to last.
+        </p>
+        <div class="reveal mt-9 flex flex-wrap gap-3" style="--i:3">
+          <a href="#products" class="btn btn-primary">Explore products <i class="ph ph-arrow-right"></i></a>
+          <a href="#contact" class="btn btn-ghost">Contact us</a>
+        </div>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 lg:col-span-5 lg:col-start-8">
+        <figure class="hero-img tint aspect-[4/5] max-h-[78dvh] w-full rounded-2xl bg-surface">
+          <img src="https://picsum.photos/seed/neptworks-ocean-horizon/1100/1300?grayscale" alt="Calm open water under a wide sky" class="size-full object-cover" width="1100" height="1300" fetchpriority="high" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- PRODUCTS: asymmetric bento, 3 items = 3 cells -->
+    <section id="products" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 md:px-8 md:py-28">
+      <h2 class="reveal max-w-[18ch] text-3xl font-semibold tracking-tighter md:text-5xl">Three products. One standard of rigor.</h2>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-6 md:grid-rows-[auto_auto]">
+        <!-- Tide: Treasury -->
+        <article class="reveal relative flex min-h-[420px] flex-col justify-between overflow-hidden rounded-2xl bg-deep p-8 text-[#e6f2f1] md:col-span-4 md:row-span-2 md:p-10" style="background-image: radial-gradient(120% 90% at 100% 0%, rgba(63,179,169,.35), transparent 60%), radial-gradient(90% 70% at 0% 100%, rgba(13,107,103,.55), transparent 60%);">
+          <div class="flex items-center gap-3 text-sm text-[#a9cfcb]">
+            <i class="ph ph-bank text-2xl"></i> For banks
+          </div>
+          <div>
+            <h3 class="text-4xl font-semibold tracking-tighter md:text-6xl">Tide</h3>
+            <p class="mt-4 max-w-[44ch] text-lg leading-relaxed text-[#c7e0dd]">A treasury system for banks: liquidity, money-market and FX positions in one real-time ledger.</p>
+            <ul class="mt-8 grid gap-3 text-sm text-[#d7ebe8] sm:grid-cols-3">
+              <li class="flex items-center gap-2"><i class="ph ph-drop text-lg text-[#6fd0c5]"></i> Liquidity management</li>
+              <li class="flex items-center gap-2"><i class="ph ph-arrows-left-right text-lg text-[#6fd0c5]"></i> FX and money market</li>
+              <li class="flex items-center gap-2"><i class="ph ph-shield-check text-lg text-[#6fd0c5]"></i> Risk limits</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Harbor: Wealth -->
+        <article class="reveal group flex flex-col overflow-hidden rounded-2xl border border-line bg-surface md:col-span-2" style="--i:1">
+          <div class="tint aspect-[16/10]">
+            <img src="https://picsum.photos/seed/neptworks-harbor-wealth/800/500?grayscale" alt="Boats resting in a quiet harbor" loading="lazy" class="size-full object-cover transition duration-700 group-hover:scale-105" width="800" height="500" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-sm text-muted"><i class="ph ph-chart-line-up text-lg text-accent"></i> Wealth and investment</div>
+            <h3 class="mt-2 text-2xl font-semibold tracking-tight">Harbor</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">Track assets, portfolios and net worth across every account you hold.</p>
+          </div>
+        </article>
+
+        <!-- Roots: Family tree -->
+        <article class="reveal group flex flex-col overflow-hidden rounded-2xl border border-line bg-surface md:col-span-2" style="--i:2">
+          <div class="tint aspect-[16/10]">
+            <img src="https://picsum.photos/seed/neptworks-family-roots/800/500?grayscale" alt="Old tree with wide spreading branches" loading="lazy" class="size-full object-cover transition duration-700 group-hover:scale-105" width="800" height="500" />
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-sm text-muted"><i class="ph ph-tree-structure text-lg text-accent"></i> Family heritage</div>
+            <h3 class="mt-2 text-2xl font-semibold tracking-tight">Roots</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">Build and preserve your family tree, with stories and records for every generation.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- INSIDE THE PRODUCTS: tabs -->
+    <section class="border-y border-line bg-surface/60">
+      <div class="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
+        <h2 class="reveal text-3xl font-semibold tracking-tighter md:text-4xl">What each product handles</h2>
+
+        <div class="reveal mt-8 flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Products" style="--i:1">
+          <button class="tab btn btn-ghost" role="tab" id="tab-tide" aria-controls="panel-tide" aria-selected="true">Tide</button>
+          <button class="tab btn btn-ghost" role="tab" id="tab-harbor" aria-controls="panel-harbor" aria-selected="false" tabindex="-1">Harbor</button>
+          <button class="tab btn btn-ghost" role="tab" id="tab-roots" aria-controls="panel-roots" aria-selected="false" tabindex="-1">Roots</button>
+        </div>
+
+        <div class="relative mt-10">
+          <div class="panel grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4" role="tabpanel" id="panel-tide" aria-labelledby="tab-tide">
+            <div><i class="ph ph-gauge text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Real-time positions</h3><p class="mt-2 text-sm leading-relaxed text-muted">Cash, bonds and FX exposure consolidated across branches as deals are booked.</p></div>
+            <div><i class="ph ph-handshake text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Deal lifecycle</h3><p class="mt-2 text-sm leading-relaxed text-muted">Front-to-back flow from dealing desk to settlement and accounting entries.</p></div>
+            <div><i class="ph ph-warning-diamond text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Limits and risk</h3><p class="mt-2 text-sm leading-relaxed text-muted">Counterparty and market limits checked before a trade is confirmed.</p></div>
+            <div><i class="ph ph-file-text text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Regulatory reports</h3><p class="mt-2 text-sm leading-relaxed text-muted">Reports prepared from the same ledger the desk trades on.</p></div>
+          </div>
+
+          <div class="panel grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4" role="tabpanel" id="panel-harbor" aria-labelledby="tab-harbor" hidden>
+            <div><i class="ph ph-wallet text-3xl text-accent"></i><h3 class="mt-4 font-semibold">All assets, one view</h3><p class="mt-2 text-sm leading-relaxed text-muted">Stocks, funds, deposits, gold and property in a single balance sheet.</p></div>
+            <div><i class="ph ph-chart-pie-slice text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Portfolio analytics</h3><p class="mt-2 text-sm leading-relaxed text-muted">Allocation, returns and cash flow measured over any period.</p></div>
+            <div><i class="ph ph-target text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Goals</h3><p class="mt-2 text-sm leading-relaxed text-muted">Plan for education, retirement or a home and see progress each month.</p></div>
+            <div><i class="ph ph-lock-key text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Private by design</h3><p class="mt-2 text-sm leading-relaxed text-muted">Your financial data stays yours, encrypted at rest and in transit.</p></div>
+          </div>
+
+          <div class="panel grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4" role="tabpanel" id="panel-roots" aria-labelledby="tab-roots" hidden>
+            <div><i class="ph ph-users-three text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Visual family tree</h3><p class="mt-2 text-sm leading-relaxed text-muted">Map ancestors and descendants across many generations and branches.</p></div>
+            <div><i class="ph ph-book-open-text text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Stories and records</h3><p class="mt-2 text-sm leading-relaxed text-muted">Attach photos, documents and memories to each person.</p></div>
+            <div><i class="ph ph-calendar-heart text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Anniversaries</h3><p class="mt-2 text-sm leading-relaxed text-muted">Remember death anniversaries and family events, lunar calendar included.</p></div>
+            <div><i class="ph ph-share-network text-3xl text-accent"></i><h3 class="mt-4 font-semibold">Shared with family</h3><p class="mt-2 text-sm leading-relaxed text-muted">Invite relatives to contribute while you control who sees what.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDERS: offset pair -->
+    <section id="founders" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 md:px-8 md:py-32">
+      <div class="grid gap-12 md:grid-cols-12">
+        <div class="md:col-span-5">
+          <p class="reveal mb-5 font-mono text-xs uppercase tracking-[0.18em] text-accent">Founders</p>
+          <h2 class="reveal text-3xl font-semibold tracking-tighter md:text-5xl" style="--i:1">Started by two brothers.</h2>
+          <p class="reveal mt-6 max-w-[42ch] leading-relaxed text-muted" style="--i:2">Hiep and Hieu Hoang founded Neptworks to build the software they wanted for their own family and for the banks they worked alongside.</p>
+        </div>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:col-span-6 md:col-start-7">
+          <!-- TODO: replace initials blocks with real founder portraits (800x1000) -->
+          <figure class="reveal">
+            <div class="grid aspect-[4/5] place-items-center rounded-2xl bg-deep text-6xl font-semibold tracking-tighter text-[#7fd6cc]" role="img" aria-label="Hiep Hoang">Hiep</div>
+            <figcaption class="mt-4"><span class="block font-semibold">Hiep Hoang</span><span class="text-sm text-muted">Co-founder</span></figcaption>
+          </figure>
+          <figure class="reveal sm:mt-16" style="--i:1">
+            <div class="grid aspect-[4/5] place-items-center rounded-2xl bg-accent text-6xl font-semibold tracking-tighter text-on-accent" role="img" aria-label="Hieu Hoang">Hieu</div>
+            <figcaption class="mt-4"><span class="block font-semibold">Hieu Hoang</span><span class="text-sm text-muted">Co-founder</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPROACH: statement + 2x2 principles -->
+    <section id="approach" class="scroll-mt-20 border-t border-line">
+      <div class="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
+        <p class="reveal max-w-[28ch] text-3xl font-medium leading-tight tracking-tighter md:text-5xl">
+          Money and family history both deserve software that gets the details <em class="text-accent">right</em>.
+        </p>
+        <div class="mt-16 grid gap-x-16 gap-y-12 md:grid-cols-2">
+          <div class="reveal flex gap-5">
+            <i class="ph ph-scales text-3xl text-accent"></i>
+            <div><h3 class="text-lg font-semibold">Precision first</h3><p class="mt-2 max-w-[48ch] leading-relaxed text-muted">Every figure reconciles. We test calculations the way auditors read them.</p></div>
+          </div>
+          <div class="reveal flex gap-5" style="--i:1">
+            <i class="ph ph-shield text-3xl text-accent"></i>
+            <div><h3 class="text-lg font-semibold">Secure by default</h3><p class="mt-2 max-w-[48ch] leading-relaxed text-muted">Access control, encryption and audit trails are built in, not bolted on.</p></div>
+          </div>
+          <div class="reveal flex gap-5" style="--i:2">
+            <i class="ph ph-map-trifold text-3xl text-accent"></i>
+            <div><h3 class="text-lg font-semibold">Built for Vietnam</h3><p class="mt-2 max-w-[48ch] leading-relaxed text-muted">Local regulation, VND and multi-currency, lunar dates and Vietnamese naming, handled natively.</p></div>
+          </div>
+          <div class="reveal flex gap-5" style="--i:3">
+            <i class="ph ph-hourglass-medium text-3xl text-accent"></i>
+            <div><h3 class="text-lg font-semibold">Made to last</h3><p class="mt-2 max-w-[48ch] leading-relaxed text-muted">Wealth and family records span decades. Our data models are designed for that horizon.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT: full-width block -->
+    <section id="contact" class="scroll-mt-20 px-4 pb-20 md:px-8 md:pb-28">
+      <div class="reveal mx-auto max-w-7xl overflow-hidden rounded-2xl bg-deep px-6 py-16 text-[#e6f2f1] md:px-16 md:py-24" style="background-image: radial-gradient(80% 120% at 100% 100%, rgba(63,179,169,.30), transparent 60%);">
+        <h2 class="max-w-[20ch] text-3xl font-semibold tracking-tighter md:text-5xl">Talk to us about your bank, portfolio or family.</h2>
+        <p class="mt-5 max-w-[50ch] leading-relaxed text-[#b9d6d2]">Send a short note on what you need. A founder will reply within two working days.</p>
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a href="mailto:hoanghiep0179@blogcuahieu.com" class="btn bg-[#e6f2f1] text-[#082f31] hover:bg-white">
+            <i class="ph ph-envelope-simple text-lg"></i> Contact us
+          </a>
+          <button id="copyEmail" class="btn border border-[#2f5f60] text-[#e6f2f1] hover:border-[#6fd0c5]" data-email="hoanghiep0179@blogcuahieu.com">
+            <i class="ph ph-copy text-lg" aria-hidden="true"></i>
+            <span class="font-mono text-[13px]">hoanghiep0179@blogcuahieu.com</span>
+          </button>
+          <span id="copyStatus" class="text-sm text-[#9fe0d6]" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-line">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 text-sm md:grid-cols-12 md:px-8">
+      <div class="md:col-span-6">
+        <a href="#top" class="flex items-center gap-2.5 font-semibold tracking-tight text-base">
+          <span class="grid size-8 place-items-center rounded-lg bg-accent text-on-accent text-sm font-bold">N</span>
+          Neptworks
+        </a>
+        <p class="mt-4 max-w-[36ch] text-muted">Wealth, treasury and family-heritage software, built in Vietnam.</p>
+      </div>
+      <div class="md:col-span-3">
+        <h3 class="font-medium">Products</h3>
+        <ul class="mt-3 grid gap-2 text-muted">
+          <li><a class="hover:text-ink" href="#products">Tide for banks</a></li>
+          <li><a class="hover:text-ink" href="#products">Harbor for investors</a></li>
+          <li><a class="hover:text-ink" href="#products">Roots for families</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-3">
+        <h3 class="font-medium">Company</h3>
+        <ul class="mt-3 grid gap-2 text-muted">
+          <li><a class="hover:text-ink" href="#founders">Founders</a></li>
+          <li><a class="hover:text-ink" href="#approach">Approach</a></li>
+          <li><a class="hover:text-ink" href="mailto:hoanghiep0179@blogcuahieu.com">Email</a></li>
+        </ul>
+      </div>
+      <p class="text-muted md:col-span-12">&copy; <span id="year">2026</span> Neptworks. Made in Vietnam.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal via IntersectionObserver
+    function initReveal() {
+      const els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach((el) => el.classList.add("in"));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+      els.forEach((el) => io.observe(el));
+    }
+
+    // Accessible tabs with arrow-key support
+    function initTabs() {
+      const tabs = [...document.querySelectorAll('[role="tab"]')];
+      const select = (tab) => {
+        tabs.forEach((t) => {
+          const on = t === tab;
+          t.setAttribute("aria-selected", on);
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+        });
+      };
+      tabs.forEach((tab, i) => {
+        tab.addEventListener("click", () => select(tab));
+        tab.addEventListener("keydown", (e) => {
+          const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+          if (!dir) return;
+          const next = tabs[(i + dir + tabs.length) % tabs.length];
+          next.focus();
+          select(next);
+        });
+      });
+    }
+
+    // Mobile menu toggle
+    function initMenu() {
+      const btn = document.getElementById("menuBtn");
+      const menu = document.getElementById("mobileMenu");
+      const setOpen = (open) => {
+        menu.classList.toggle("hidden", !open);
+        btn.setAttribute("aria-expanded", open);
+      };
+      btn.addEventListener("click", () => setOpen(menu.classList.contains("hidden")));
+      menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    }
+
+    // Copy email with success / error feedback
+    function initCopyEmail() {
+      const btn = document.getElementById("copyEmail");
+      const status = document.getElementById("copyStatus");
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.email);
+          status.textContent = "Email copied";
+        } catch {
+          status.textContent = "Copy failed. Select the address manually.";
+        }
+        setTimeout(() => (status.textContent = ""), 2500);
+      });
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    initReveal();
+    initTabs();
+    initMenu();
+    initCopyEmail();
+  </script>
+</body>
+</html>
