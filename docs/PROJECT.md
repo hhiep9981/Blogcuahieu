@@ -25,3 +25,7 @@ Hiep Hoang and Hieu Hoang. Content language: English.
 
 ## Contact
 hoanghiep0179@blogcuahieu.com
+
+## Deployment
+- GitHub Pages from `main` branch root: https://hhiep9981.github.io/neptworks/
+- Repo: https://github.com/hhiep9981/neptworks

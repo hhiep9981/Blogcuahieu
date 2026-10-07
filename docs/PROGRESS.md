@@ -10,4 +10,4 @@
 - [ ] Replace founder tiles with real portraits (800x1000)
 - [ ] Replace picsum images with brand photography
 - [ ] Real logo, favicon, OG image
-- [ ] Deploy (Cloudflare Pages / Vercel / GitHub Pages)
+- [x] Deployed to GitHub Pages: https://hhiep9981.github.io/neptworks/ (repo hhiep9981/neptworks)
